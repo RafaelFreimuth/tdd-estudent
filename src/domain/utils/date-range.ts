@@ -3,14 +3,7 @@ export default class DateRange {
     private readonly endDate: Date;
 
     constructor(startDate: Date, endDate: Date) {
-        if (endDate == startDate) {
-            throw "A Data inicial não deve ser igual a Data Final.";
-        }
-
-        if (endDate < startDate) {
-            throw "A Data Final deve ser posterior a Data Inicial.";
-        }
-
+        this.validateDates(startDate, endDate);
         this.startDate = startDate;
         this.endDate = endDate;
     }
@@ -33,5 +26,15 @@ export default class DateRange {
         return (
             this.startDate < outher.endDate && outher.startDate < this.endDate
         );
+    }
+
+    private validateDates(startDate: Date, endDate: Date): void {
+        if (endDate == startDate) {
+            throw "A Data inicial não deve ser igual a Data Final.";
+        }
+
+        if (endDate < startDate) {
+            throw "A Data Final deve ser posterior a Data Inicial.";
+        }
     }
 }
