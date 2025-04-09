@@ -1,4 +1,5 @@
 import { Property } from './property';
+import DateRange from '../utils/date-range';
 
 describe('Property', () => {
     it('Deve criar uma instancia de Property com todos os atributos', () => {
@@ -50,4 +51,36 @@ describe('Property', () => {
 
         expect(() => property.validateMaxGuedes(5)).toThrow('O número de máximo de hospedes foi excedido. Número máximo: 4');
     });
+
+    it('Não deve dar nenhum desconto caso total de noites seja menor que 7', () => {
+        const property = new Property(
+            '1',
+            'Apartamento',
+            'Apartamento todo imobiliado',
+            2,
+            100
+        );
+
+        const dateRange = new DateRange(new Date('2025-01-01'), new Date('2025-01-07'));
+        expect(property.getTotalPriceByRange(dateRange)).toBe(600);
+
+        const novoDateRage = new DateRange(new Date('2025-01-01'), new Date('2025-01-02'));
+        expect(property.getTotalPriceByRange(novoDateRage)).toBe(100);
+    });
+
+    it('Deve dar desconto de 10% caso quantidade de noites maior ou igual a 7', () => {
+        const property = new Property(
+            '1',
+            'Apartamento',
+            'Apartamento todo imobiliado',
+            2,
+            100
+        );
+
+        const dateRange = new DateRange(new Date('2025-01-01'), new Date('2025-01-08'));
+        expect(property.getTotalPriceByRange(dateRange)).toBe(630);
+
+        const dateRangeSegundaOpcao = new DateRange(new Date('2025-01-01'), new Date('2025-01-09'));
+        expect(property.getTotalPriceByRange(dateRangeSegundaOpcao)).toBe(720);
+    })
 });

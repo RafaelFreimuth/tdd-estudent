@@ -18,7 +18,7 @@ export default class DateRange {
 
     getCountNigths(): number {
         const diff = this.startDate.getTime() - this.endDate.getTime();
-        const diffDays = Math.ceil(diff / (1000 * 3600 * 24));
+        const diffDays = Math.abs(Math.ceil(diff / (1000 * 3600 * 24)));
         return diffDays;
     }
 

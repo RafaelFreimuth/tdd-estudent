@@ -1,3 +1,5 @@
+import DateRange from "../utils/date-range";
+
 export class Property {
     private readonly id: string;
     private readonly name: string;
@@ -46,5 +48,15 @@ export class Property {
         if (numberGuedes > this.maxGuests) {
             throw `O número de máximo de hospedes foi excedido. Número máximo: ${this.maxGuests}`;
         }
+    }
+
+    getTotalPriceByRange(dateRange: DateRange) {
+        const countNigths = dateRange.getCountNigths();
+        let totalPrice = this.basePricePerNigth * countNigths;
+        if (countNigths >= 7) {
+            totalPrice *= 0.9;
+        }
+
+        return totalPrice;
     }
 }
