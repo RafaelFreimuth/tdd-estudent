@@ -37,4 +37,10 @@ export class Property {
     getBasePricePerNigth() {
         return this.basePricePerNigth;
     }
+
+    validateMaxGuedes(numberGuedes: number): any {
+        if (numberGuedes > this.maxGuests) {
+            throw `O número de máximo de hospedes foi excedido. Número máximo: ${this.maxGuests}`;
+        }
+    }
 }
