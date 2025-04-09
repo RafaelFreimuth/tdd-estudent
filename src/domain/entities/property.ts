@@ -11,6 +11,10 @@ export class Property {
                 maxGuests: number, 
                 basePricePerNigth: number) {
 
+        if (maxGuests < 1) {
+            throw 'A quantidade maxima de hospedes deve ser maior que zero.';
+        }
+
         this.id = id;
         this.name = name;
         this.description = description;
