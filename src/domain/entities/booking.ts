@@ -15,6 +15,13 @@ export class Booking {
                 dateRange: DateRange,
                 countGuests: number
     ) {
+
+        if (countGuests <= 0) {
+            throw new Error("A quantidade de hospedes não deve ser negativa ou zero.");
+        }
+
+        property.validateMaxGuedes(countGuests);
+
         this.id = id;
         this.property = property;
         this.user = user;
